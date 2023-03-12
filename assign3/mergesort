@@ -1,0 +1,54 @@
+public class mergeSort {
+
+    public static void conq(int arr[], int s, int e, int mid) {
+        int mergedArray[] = new int[e - s + 1];
+
+        int index1 = s;
+        int index2 = mid + 1;
+        int newIndex = 0;
+
+        while (index1 <= mid && index2 <= e) {
+            if (arr[index1] <= arr[index2]) {
+                mergedArray[newIndex++] = arr[index1++];
+            } else {
+                mergedArray[newIndex++] = arr[index2++];
+            }
+        }
+
+        while (index1 <= mid) {
+            mergedArray[newIndex++] = arr[index1++];
+        }
+
+        while (index2 <= e) {
+            mergedArray[newIndex++] = arr[index2++];
+        }
+
+        for (int j = s; j <= e; j++) {
+            arr[j] = mergedArray[j - s];
+        }
+    }
+
+    public static void divide(int arr[], int s, int e) {
+        if (s >= e) {
+            return;
+        }
+
+        int mid = s + ((e - s) / 2);
+
+        divide(arr, s, mid);
+        divide(arr, mid + 1, e);
+        conq(arr, s, e, mid);
+    }
+
+    public static void main(String[] args) {
+        int arr[] = { 13, 2, 4, 5, 9 };
+        int n = arr.length;
+
+        divide(arr, 0, n - 1);
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(arr[i] + " ");
+        }
+        System.out.println();
+    }
+}
